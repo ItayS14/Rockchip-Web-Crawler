@@ -1,8 +1,8 @@
 from GeneralCrawler import GeneralCrawler, Firmware
 
 class RockchipCrawler(GeneralCrawler):
-    def __init__(self, server_url):
-        super().__init__(server_url)
+    def __init__(self):
+        super().__init__('https://www.rockchipfirmware.com/')
 
     def get_firms(self):
         """
@@ -34,8 +34,8 @@ class RockchipCrawler(GeneralCrawler):
 
 
 class RockchipFirmware(Firmware):
-    def __init__(self, device_name, model,version, build_date, brand, is_rooted, files):
-        super().__init__(device_name, model, version, build_date, brand, is_rooted, files)
+    def __init__(self, device_name, model,version, build_date, brand, is_rooted, links_for_files):
+        super().__init__(device_name, model, version, build_date, brand, is_rooted, links_for_files)
 
     @classmethod
     def fromWebLink(cls, url):
