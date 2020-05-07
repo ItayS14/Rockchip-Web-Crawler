@@ -25,12 +25,14 @@ class GeneralCrawler:
 
 # Class that represents a firmware that was crawled
 class Firmware:
-    def __init__(self, device_name, version, build_date, brand, is_rooted):
+    def __init__(self, device_name, model, version, build_date, brand, is_rooted, files):
         self._device_name = device_name
+        self._model = model
         self._version = version
         self._build_date = build_date
         self._brand = brand
         self._is_rooted = is_rooted
+        self._files = files
 
     def __str__(self):
-        return f'Firmware {self._device_name}: Version ({self._version}),  Build date: ({self._build_date}), Brand: ({self._brand}), Rooted({self._is_rooted})'
+        return f'Firmware {self._device_name} by {self._brand}, device model is: {self._model}'
