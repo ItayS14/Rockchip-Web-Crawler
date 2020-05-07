@@ -5,9 +5,10 @@ class RockchipCrawler(GeneralCrawler):
     def __init__(self):
         super().__init__('https://www.rockchipfirmware.com/')
 
-    def get_firms(self):
+    def get_firms(self, exists):
         """
-        The funcion will get all the firms in Rockchip website
+        The funcion will get all the new firmwares in Rockchip website
+        :param exists: pointer to function that checks if a firmware exists in memory by it's name (fnc that gets name as arg)
         :return: Generator that yield RockchipFirmware for every firmware in the website
         """
         for page in self.get_pages():
@@ -15,10 +16,11 @@ class RockchipCrawler(GeneralCrawler):
             # Finding all table rows that contain the link for the firmware webpage
             for link_td in soup.find_all('td', {'class': 'views-field-title'}):
                 link = link_td.find('a')
-                # Link is relative and in the following format node\{num}, changing it to absolute link 
-                abs_link = self._server_url + link['href'].replace('\\', '/')
-                yield RockchipFirmware.fromWebLink(abs_link)
-
+                if not exists(link.text):
+                    # Link is relative and in the following format node\{num}, changing it to absolute link 
+                    abs_link = self._server_url + link['href'].replace('\\', '/')
+                    yield RockchipFirmware.from_web_link(abs_link)
+                
     def get_pages(self):
         """
         The function will yield all the pages that has firmware from the Rockchip website
@@ -39,7 +41,7 @@ class RockchipFirmware(Firmware):
         super().__init__(device_name, model, version, build_date, brand, is_rooted, links_for_files)
 
     @classmethod
-    def fromWebLink(cls, url):
+    def from_web_link(cls, url):
         """
         Constructor for RockchipFirmware class from web page link
         :param url: link for the webpage (str)

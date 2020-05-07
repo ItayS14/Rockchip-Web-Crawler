@@ -8,9 +8,10 @@ class GeneralCrawler:
     def __init__(self, server_url):
         self._server_url = server_url 
     
-    def get_firms(self):
+    def get_firms(self, exists):
         """
-        Generator fucnction that yields all the firms in the website
+        Generator fucnction that yields all the new firmwares in the website
+        :param exists: pointer to function that checks if a firmware exists in memory by it's name (fnc that gets name as arg)
         :return: Generator of Firmware class
         """
         raise NotImplementedError
@@ -56,7 +57,7 @@ class Firmware:
                 f.write(file_content)
 
     @property
-    def asMongoDocument(self):
+    def mongo_document(self):
         """
         Property that returns the class as a dictionary to save in the mongoDB
         """
