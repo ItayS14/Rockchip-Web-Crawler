@@ -1,4 +1,5 @@
 from GeneralCrawler import GeneralCrawler, Firmware
+import os
 
 class RockchipCrawler(GeneralCrawler):
     def __init__(self):
@@ -54,6 +55,15 @@ class RockchipFirmware(Firmware):
             RockchipFirmware.get_info(soup, 'field-rooted') == 'Rooted',
             RockchipFirmware.get_files(soup)
         )
+
+  
+    def download_files(self, directory=""):
+        """
+        Function that inherit the Firmware.download_files, it makes sure that a directory Rockchip is created
+        :param directory: base directory to save the files to, by default into {current_dir}/Rockchip - (str)
+        """
+        new_dir = os.path.join('Rockchip', directory)
+        super().download_files(new_dir)
 
     @staticmethod 
     def get_info(soup, name):

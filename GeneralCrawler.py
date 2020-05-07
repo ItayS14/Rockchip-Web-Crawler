@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import os
+from urllib.parse import unquote
 
 # General abstract class that each crawler will inherite from
 class GeneralCrawler:
@@ -43,7 +44,7 @@ class Firmware:
         # Stopping if there is no files to download
         if not self.files:
             return
-            
+
         # Creating directory: /{brand_name}/{device_name} and inside will be placed list of files
         dir_path = os.path.join(directory, self._brand, self._device_name)
         os.makedirs(dir_path, exist_ok=True)
@@ -72,9 +73,13 @@ class Firmware:
     @property
     def files(self):
         """
-        Property that returns only the filename from the file url stored in the class
+        Property that returns only the filename from the file url stored in the class, and will url decode the file
         """
-        return [file_link[file_link.rfind('/') + 1:] for file_link in self._links_for_files]
+        files = []
+        for file_link in self._links_for_files:
+            file_name = file_link[file_link.rfind('/') + 1:]
+            files.append(unquote(file_name))
+        return files
 
     def __str__(self):
         return f'Firmware {self._device_name} by {self._brand}, device model is: {self._model}'
