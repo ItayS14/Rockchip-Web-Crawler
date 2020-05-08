@@ -64,7 +64,7 @@ class RockchipFirmware(Firmware):
         Function that inherit the Firmware.download_files, it makes sure that a directory Rockchip is created
         :param directory: base directory to save the files to, by default into {current_dir}/Rockchip - (str)
         """
-        new_dir = os.path.join('Rockchip', directory)
+        new_dir = os.path.join(directory, 'Rockchip')
         super().download_files(new_dir)
 
     @staticmethod 

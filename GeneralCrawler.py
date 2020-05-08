@@ -51,7 +51,6 @@ class Firmware:
         os.makedirs(dir_path, exist_ok=True)
 
         for file_name, link in zip(self.files, self._links_for_files):
-            print('downloading', file_name, 'from', link)
             file_content = requests.get(link).content
             with open(os.path.join(dir_path, file_name), 'wb') as f:
                 f.write(file_content)
@@ -83,4 +82,4 @@ class Firmware:
         return files
 
     def __str__(self):
-        return f'Firmware {self._device_name} by {self._brand}, device model is: {self._model}'
+        return f'{self._device_name} by {self._brand}, device model is: {self._model}'
