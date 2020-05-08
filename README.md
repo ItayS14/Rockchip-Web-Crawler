@@ -34,7 +34,7 @@ optional arguments:
 
 ### Installing
 
-Clone the repository and install the decencies:
+Clone the repository and install the dependencies:
 
  ```bash
 git clone https://github.com/ItayS14/Rockchip-Web-Crawler
