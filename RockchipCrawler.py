@@ -26,7 +26,7 @@ class RockchipCrawler(GeneralCrawler):
         The function will yield all the pages that has firmware from the Rockchip website
         :return: Generator that yields links to pages
         """
-        full_link = self._server_url + 'firmware-downloads'
+        full_link = self._server_url + 'firmware-downloads' # Link to the first page
         while True:
             yield full_link
             page = GeneralCrawler.get_soup(full_link)
@@ -58,7 +58,6 @@ class RockchipFirmware(Firmware):
             RockchipFirmware.get_files(soup)
         )
 
-  
     def download_files(self, directory=""):
         """
         Function that inherit the Firmware.download_files, it makes sure that a directory Rockchip is created

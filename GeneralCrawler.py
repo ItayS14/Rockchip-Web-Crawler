@@ -48,7 +48,11 @@ class Firmware:
 
         # Creating directory: /{brand_name}/{device_name} and inside will be placed list of files
         dir_path = os.path.join(directory, self._brand, self._device_name)
-        os.makedirs(dir_path, exist_ok=True)
+        try:
+            os.makedirs(dir_path, exist_ok=True)
+        except PermissionError:
+            print(f'error: no permission to access {dir_path}')
+            exit()
 
         for file_name, link in zip(self.files, self._links_for_files):
             file_content = requests.get(link).content
