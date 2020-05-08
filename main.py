@@ -23,7 +23,7 @@ def main():
     parser.add_argument('server_url', help='The url to the website you wish to crawl')
     parser.add_argument('-u', '--uri', help='Uri for the mongoDB, default is: mongo://localhost:27017/', default='mongodb://localhost:27017/')
     parser.add_argument('-v', '--verbose', help='If enabled, displaying the output of the program', action='store_true')
-    parser.add_argument('-d', '--directory', help='Directory to download the files to, by default in {current_directory}/{crawler_name}', nargs='?', default='')
+    parser.add_argument('-d', '--directory', help='Directory to download the files to, by default in {current_directory}/{crawler_name}', default='')
     args = parser.parse_args()
     
     client = MongoClient(args.uri, serverSelectionTimeoutMS=2)
